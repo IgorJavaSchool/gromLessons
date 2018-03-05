@@ -1,0 +1,72 @@
+    Нужно создать упрощенное приложения для онлайн бронирования комнат в гостинницах.
+ Пользователь может делать следующий действия в системе:
+
+    findRooms(Filter filter)
+    void bookRoom(long roomId, long userId, long hotelId)
+    void cancelReservation(long roomId, long userId)
+    registerUser(User user)
+    void login(String userName, String password)
+    void logout()
+
+
+    Если какое-то действие невозможно, нужно выбрасывать соответствующую ошибку, которая в описании обязательно
+ должна содержать название метода, а такде
+ id юзера/комнаты/гостинницы, если они есть
+
+    Продумайте систему логина. Используются только возможности java core.
+ При этом после логина в каждом методе должен быть доступ к информации какой юзер залогинен
+ (считаем что одновременно может быть залогинен только один юзер). Если пользователь не залогинен и
+ вызывается любой метод, выбрасывать соответствующую ошибку
+
+    Методы доступны только для администраторов:
+
+    addHotel(Hotel hotel)
+    deleteHotel(long hotelId)
+    addRoom(Room room)
+    deleteRoom(long RoomId)
+
+
+
+      Следуйте 3 уровневой архитектуре, а та же всем принципам программирования,
+      которые мы рассматривали в курсе
+      В системе используется три основных сущности - User, Hotel, Room, Order.
+       Объекты каждой из них хранятся в текстовых файлах в формате .txt (UserDb.txt, HotelDb.txt, RoomDb.txt, Order.txt)
+    Каждый объект это отдельная строка в файле, где значения колонок разделяются запятыми. Все объекты должны
+      быть с уникальным id в рамках одного файла, а так же не должны содержать пустых полей
+    Структура сущностей:
+
+    User:
+    long id
+    String userName
+    String password
+    String country
+    UserType (ADMIN, USER)
+
+    Order:
+    long id
+    User user
+    Room room
+    Date dateFrom
+    Date dateTo
+    double moneyPaid
+
+    Room:
+    long id
+    int numberOfGuests
+    double price
+    boolean breakfastIncluded
+    boolean petsAllowed
+    Date dateAvailableFrom
+    Hotel hotel
+
+    Hotel:
+    long id
+    String name
+    String country
+    String city
+    String street
+
+
+
+    Каждый из методов протестируйте на как минимум 3 тестовых данных, желательно иметь отдельные демо классы для
+ каждой из сущностей
