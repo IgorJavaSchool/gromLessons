@@ -14,7 +14,7 @@ public class PriceException extends Exception{
     @Override
     public String toString() {
         return "PriceException{" +
-                "money=" + money +
+                "money=" + money + " " + getMessage() +
                 '}';
     }
 }

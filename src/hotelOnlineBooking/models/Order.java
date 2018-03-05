@@ -1,6 +1,7 @@
 package hotelOnlineBooking.models;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -53,11 +54,11 @@ public class Order extends Model {
     @Override
     public String toString() {
         return "Order{" +
-                "user=" + user +
-                ", room=" + room +
-                ", dateFrom=" + dateFrom +
-                ", dateTo=" + dateTo +
-                ", moneyPaid=" + moneyPaid +
+                "userID = " + user.getId() +
+                ", roomID = " + room.getId() +
+                ", dateFrom = " + new SimpleDateFormat("dd.MM.yyyy").format(dateFrom) +
+                ", dateTo = " + new SimpleDateFormat("dd.MM.yyyy").format(dateTo) +
+                ", moneyPaid = " + moneyPaid +
                 '}';
     }
 

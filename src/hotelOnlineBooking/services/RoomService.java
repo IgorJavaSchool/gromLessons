@@ -60,7 +60,7 @@ public class RoomService implements ValidatorFields{
             throw new NullPointerException("Room should not null");
         }
         if (room.getNumberOfGuests() < 1 || room.getNumberOfGuests() > 15){
-            throw new CountGuestException("Number of guests should from 1 to 15 persons", room.getNumberOfGuests());
+            throw new CountGuestException(room.getNumberOfGuests());
         }
         if (room.getPrice() < 1) throw new PriceException("Price should more 0", room.getPrice());
 

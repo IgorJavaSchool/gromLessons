@@ -13,7 +13,7 @@ public class FindIDException extends Exception {
     @Override
     public String toString() {
         return "FindIDException{" +
-                "ID=" + ID + " not find" +
+                "ID=" + ID + " not find " + getMessage() +
                 '}';
     }
 }

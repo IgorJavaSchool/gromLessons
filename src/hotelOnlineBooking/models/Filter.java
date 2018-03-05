@@ -1,5 +1,6 @@
 package hotelOnlineBooking.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -82,14 +83,14 @@ public class Filter {
     @Override
     public String toString() {
         return "Filter{" +
-                "numberOfGuests=" + numberOfGuests +
-                ", price=" + price +
-                ", breakfastIncluded=" + breakfastIncluded +
-                ", petsAllowed=" + petsAllowed +
-                ", dateAvailableFrom=" + dateAvailableFrom +
-                ", hotelName='" + hotelName + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
+                "numberOfGuests = " + numberOfGuests +
+                ", price = " + price +
+                ", breakfastIncluded = " + breakfastIncluded +
+                ", petsAllowed = " + petsAllowed +
+                ", dateAvailableFrom = " + new SimpleDateFormat("dd.MM.yyyy").format(dateAvailableFrom) +
+                ", hotelName = '" + hotelName + '\'' +
+                ", country = '" + country + '\'' +
+                ", city = '" + city + '\'' +
                 '}';
     }
 }

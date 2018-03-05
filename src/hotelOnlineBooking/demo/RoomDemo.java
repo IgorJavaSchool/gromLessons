@@ -62,6 +62,72 @@ public class RoomDemo {
         } catch (CountGuestException e) {
             e.printStackTrace();
         }
-        // TODO: 27.02.2018  
+
+        /**
+         * Delete room
+         */
+        try {
+            roomController.deleteRoom(4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            roomController.deleteRoom(-1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /**
+         * Create roms with mistake
+         */
+        // Date before current
+        try {
+            roomController.addRoom(new Room(4, 520.0, false, false, new Date(118, 2, 1), hotel));
+        } catch (IncorrectDateException e) {
+            e.printStackTrace();
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (PriceException e) {
+            e.printStackTrace();
+        } catch (CountGuestException e) {
+            e.printStackTrace();
+        }
+
+        // price = 0
+        try {
+            roomController.addRoom(new Room(4, 0, false, false, new Date(118, 2, 10), hotel));
+        } catch (IncorrectDateException e) {
+            e.printStackTrace();
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (PriceException e) {
+            e.printStackTrace();
+        } catch (CountGuestException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            roomController.addRoom(new Room(1000, 520.0, false, false, new Date(118, 2, 10), hotel));
+        } catch (IncorrectDateException e) {
+            e.printStackTrace();
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (PriceException e) {
+            e.printStackTrace();
+        } catch (CountGuestException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            roomController.addRoom(new Room(0, 520.0, false, false, new Date(118, 2, 10), hotel));
+        } catch (IncorrectDateException e) {
+            e.printStackTrace();
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (PriceException e) {
+            e.printStackTrace();
+        } catch (CountGuestException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package hotelOnlineBooking.models;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
@@ -52,12 +53,12 @@ public class Room extends Model {
     @Override
     public String toString() {
         return "Room{" +
-                "numberOfGuests=" + numberOfGuests +
-                ", price=" + price +
-                ", breakfastIncluded=" + breakfastIncluded +
-                ", petsAllowed=" + petsAllowed +
-                ", dateAvailableFrom=" + dateAvailableFrom +
-                ", hotel=" + hotel +
+                "numberOfGuests = " + numberOfGuests +
+                ", price = " + price +
+                ", breakfastIncluded = " + breakfastIncluded +
+                ", petsAllowed = " + petsAllowed +
+                ", dateAvailableFrom = " + new SimpleDateFormat("dd.MM.yyyy").format(dateAvailableFrom) +
+                ", hotel = " + hotel.getName() +
                 '}';
     }
     @Override

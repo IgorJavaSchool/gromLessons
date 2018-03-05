@@ -37,10 +37,10 @@ public class Hotel extends Model {
     @Override
     public String toString() {
         return "Hotel{" +
-                "name='" + name + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
+                "name = '" + name + '\'' +
+                ", country = '" + country + '\'' +
+                ", city = '" + city + '\'' +
+                ", street = '" + street + '\'' +
                 '}';
     }
 

@@ -37,10 +37,10 @@ public class User extends Model {
     @Override
     public String toString() {
         return "User{" +
-                "userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", country='" + country + '\'' +
-                ", userType=" + userType +
+                "userName = '" + userName + '\'' +
+                ", password = '" + password + '\'' +
+                ", country = '" + country + '\'' +
+                ", userType = " + userType +
                 '}';
     }
 

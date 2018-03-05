@@ -33,6 +33,56 @@ public class OrderDemo {
         } catch (IncorrectDateException e) {
             e.printStackTrace();
         }
+
+        try {
+            orderController.bookRoom(4, 1, 1);
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (FindIDException e) {
+            e.printStackTrace();
+        } catch (IncorrectDateException e) {
+            e.printStackTrace();
+        }
+
+        /**
+         * Create order with mistake.
+         */
+        try {
+            orderController.bookRoom(3, 1, 2);
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (FindIDException e) {
+            e.printStackTrace();
+        } catch (IncorrectDateException e) {
+            e.printStackTrace();
+        }
+        try {
+            orderController.bookRoom(-1, 1, 2);
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (FindIDException e) {
+            e.printStackTrace();
+        } catch (IncorrectDateException e) {
+            e.printStackTrace();
+        }
+        try {
+            orderController.bookRoom(1, 0, 2);
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (FindIDException e) {
+            e.printStackTrace();
+        } catch (IncorrectDateException e) {
+            e.printStackTrace();
+        }
+        try {
+            orderController.bookRoom(0, 0, 0);
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (FindIDException e) {
+            e.printStackTrace();
+        } catch (IncorrectDateException e) {
+            e.printStackTrace();
+        }
         /**
          * Canceled order.
          */
@@ -44,6 +94,13 @@ public class OrderDemo {
             e.printStackTrace();
         }
 
-        // TODO: 27.02.2018
+        try {
+            orderController.cancelReservation(-2, 1);
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (FindIDException e) {
+            e.printStackTrace();
+        }
+
     }
 }

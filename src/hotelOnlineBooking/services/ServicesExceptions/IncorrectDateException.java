@@ -28,7 +28,7 @@ public class IncorrectDateException extends Exception {
     @Override
     public String toString() {
         return "IncorrectDateException{" +
-                "date=" + date +
+                "date=" + date + " " + getMessage() +
                 '}';
     }
 }

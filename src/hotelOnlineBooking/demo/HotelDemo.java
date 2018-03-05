@@ -10,6 +10,9 @@ import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
  */
 public class HotelDemo {
     public static void main(String[] args) {
+        /**
+         * Create hotels.
+         */
         try {
             new HotelController().addHotel(new Hotel("Hilton", "USA", "Chicago", "23 avenues"));
 
@@ -36,10 +39,42 @@ public class HotelDemo {
         } catch (FindInstanceException e) {
             e.printStackTrace();
         }
-        new HotelController().deleteHotel(3);
+        /**
+         * Delete hotel
+         */
+        try {
+            new HotelController().deleteHotel(3);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /**
+         * Create hotel with mistakes.
+         */
+        try {
+            new HotelController().addHotel(new Hotel("", "USA", "Chicago", "23 avenues"));
+
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        try {
+            new HotelController().addHotel(new Hotel("Kempinsky", null, "Amsterdam", "Red lights"));
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        try {
+            new HotelController().addHotel(new Hotel("Londonskaya", "Ukraine", "", null));
+        } catch (FindInstanceException e) {
+            e.printStackTrace();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
 
 
-        // TODO: 27.02.2018
     }
 }

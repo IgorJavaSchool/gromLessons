@@ -25,7 +25,7 @@ public class FindInstanceException extends Exception {
     @Override
     public String toString() {
         return "FindInstanceException{" +
-                "model=" + model +
+                "model=" + model + " " + getMessage() +
                 '}';
     }
 }

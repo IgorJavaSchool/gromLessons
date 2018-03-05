@@ -6,15 +6,14 @@ package hotelOnlineBooking.services.ServicesExceptions;
 public class CountGuestException extends Exception{
     int guests;
 
-    public CountGuestException(String message, int guests) {
-        super(message);
+    public CountGuestException(int guests) {
         this.guests = guests;
     }
 
     @Override
     public String toString() {
         return "CountGuestException{" +
-                "guests=" + guests +
+                "guests=" + guests + " number of guests should from 1 to 15 persons" +
                 '}';
     }
 }
