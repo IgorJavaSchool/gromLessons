@@ -4,7 +4,7 @@ package hotelOnlineBooking.services.ServicesExceptions;
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class CountGuestException extends Exception{
-    int guests;
+    private int guests;
 
     public CountGuestException(int guests) {
         this.guests = guests;

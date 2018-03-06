@@ -4,7 +4,7 @@ package hotelOnlineBooking.services.ServicesExceptions;
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class PriceException extends Exception{
-    double money;
+    private double money;
 
     public PriceException(String message, double money) {
         super(message);

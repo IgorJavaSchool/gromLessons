@@ -6,7 +6,7 @@ import java.util.Date;
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class IncorrectDateException extends Exception {
-    Date date;
+    private Date date;
 
     public IncorrectDateException(String message, Date date) {
         super(message);

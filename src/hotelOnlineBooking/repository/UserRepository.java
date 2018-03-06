@@ -87,7 +87,13 @@ public class UserRepository extends GeneralRepository implements RepositoryFills
         for (String field : orderFields){
             if (field.isEmpty()|| Objects.equals(field, " ")) return null;
         }
-        long ID = parseID(orderFields[0]);
+        long ID;
+        try {
+            ID = parseID(orderFields[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
         User user;
         try {
             user = new User(orderFields[1], orderFields[2], orderFields[3], UserType.valueOf(orderFields[4]));

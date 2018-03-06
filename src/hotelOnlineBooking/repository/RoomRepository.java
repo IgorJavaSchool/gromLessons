@@ -90,13 +90,14 @@ public class RoomRepository extends GeneralRepository implements RepositoryFills
      */
     @Override
     public Model parseFieldOrder(String[] orderFields) {
-        long ID = parseID(orderFields[0]);
+        long ID;
         int numberOfGuests;
         double price;
         boolean breakfastIncluded;
         boolean petsAllowed;
         Date dateAvailableFrom;
         try {
+            ID = parseID(orderFields[0]);
             numberOfGuests = Integer.parseInt(orderFields[1]);
             price = Double.parseDouble(orderFields[2]);
             breakfastIncluded = Boolean.parseBoolean(orderFields[3]);

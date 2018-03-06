@@ -10,7 +10,7 @@ import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
  */
 public class HotelService implements ValidatorFields{
 
-    HotelRepository hotelRepository = new HotelRepository();
+    private HotelRepository hotelRepository = new HotelRepository();
 
     public void addHotel(Hotel hotel) throws FindInstanceException {
         validateFields(hotel);

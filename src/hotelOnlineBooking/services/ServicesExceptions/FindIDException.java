@@ -4,7 +4,7 @@ package hotelOnlineBooking.services.ServicesExceptions;
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class FindIDException extends Exception {
-    long ID;
+    private long ID;
 
     public FindIDException(long ID) {
         this.ID = ID;

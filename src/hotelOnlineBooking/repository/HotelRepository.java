@@ -73,7 +73,13 @@ public class HotelRepository extends GeneralRepository implements RepositoryFill
      */
     @Override
     public Model parseFieldOrder(String[] orderFields) {
-        long ID = parseID(orderFields[0]);
+        long ID;
+        try {
+            ID = parseID(orderFields[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
         Hotel hotel = new Hotel(orderFields[1], orderFields[2], orderFields[3], orderFields[4]);
         hotel.setId(ID);
         return hotel;

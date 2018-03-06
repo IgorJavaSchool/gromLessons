@@ -48,6 +48,14 @@ public class RoomService implements ValidatorFields{
      * @return
      */
     public Collection<Room> findRooms(Filter filter){
+        int numberOfGuests;
+        double price;
+        boolean breakfastIncluded;
+        boolean petsAllowed;
+        Date dateAvailableFrom;
+        String hotelName;
+        String country;
+        String city;
 
         // TODO: 27.02.2018
         return null;
