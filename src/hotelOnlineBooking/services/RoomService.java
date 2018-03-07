@@ -1,5 +1,6 @@
 package hotelOnlineBooking.services;
 
+import hotelOnlineBooking.models.Filter;
 import hotelOnlineBooking.models.Model;
 import hotelOnlineBooking.models.Room;
 import hotelOnlineBooking.repository.HotelRepository;
@@ -9,9 +10,8 @@ import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
 import hotelOnlineBooking.services.ServicesExceptions.IncorrectDateException;
 import hotelOnlineBooking.services.ServicesExceptions.PriceException;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.logging.Filter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Yanevskyy Igor igor2000@inbox.ru.
@@ -48,17 +48,81 @@ public class RoomService implements ValidatorFields{
      * @return
      */
     public Collection<Room> findRooms(Filter filter){
+        Collection<Room> rooms = roomRepository.getModels();
         int numberOfGuests;
+        if (filter.getNumberOfGuests() > 0){
+            Collection<Room> filterRooms = numberOfGuestFilter(filter.getNumberOfGuests(), rooms);
+            if (!filterRooms.isEmpty()) rooms = filterRooms;
+        }
         double price;
+        if (filter.getPrice() > 0){
+            Collection<Room> filterRooms = rooms.stream().filter(room ->
+                    room.getPrice() <= filter.getPrice()).collect(Collectors.toCollection(HashSet::new));
+            if (!filterRooms.isEmpty()) rooms = filterRooms;
+        }
+
         boolean breakfastIncluded;
         boolean petsAllowed;
+        Collection<Room> filterRooms = rooms.stream().filter(room ->
+                room.isBreakfastIncluded() == filter.isBreakfastIncluded() &&
+                        room.isPetsAllowed() == filter.isPetsAllowed()).collect(Collectors.toCollection(HashSet::new));
+        if (!filterRooms.isEmpty()) rooms = filterRooms;
         Date dateAvailableFrom;
+        if (!filter.getDateAvailableFrom().before(new Date())){
+            filterRooms = rooms.stream().filter(room ->
+                    room.getPrice() <= filter.getPrice()).collect(Collectors.toCollection(HashSet::new));
+            if (!filterRooms.isEmpty()) rooms = filterRooms;
+        }
         String hotelName;
         String country;
         String city;
-
         // TODO: 27.02.2018
         return null;
+    }
+
+    private Collection<Room> numberOfGuestFilter(int numberOfGuests, Collection<Room> rooms){
+        if (numberOfGuests > 0) {
+            return rooms.stream().filter(room ->
+                    room.getNumberOfGuests() == numberOfGuests).collect(Collectors.toCollection(HashSet::new));
+        } else return rooms;
+    }
+
+    private Collection<Room> priceFilter(double price, Collection<Room> rooms){
+            return price > 0 ? rooms.stream().filter(room ->
+                    room.getPrice() <= price).collect(Collectors.toCollection(HashSet::new)) : rooms;
+    }
+
+    private Collection<Room> breakfastIncludedFilter(boolean breakfastIncluded, Collection<Room> rooms){
+            return breakfastIncluded ?
+                    rooms.stream().filter(Room::isBreakfastIncluded).collect(Collectors.toCollection(HashSet::new))
+                    : rooms;
+    }
+
+    private Collection<Room> petsAllowedFilter(boolean petsAllowed, Collection<Room> rooms){
+        return petsAllowed ? rooms.stream().filter(Room::isPetsAllowed).collect(Collectors.toCollection(HashSet::new))
+                : rooms;
+    }
+
+    private Collection<Room> dateAvailableFromFilter(Date dateAvailableFrom, Collection<Room> rooms){
+
+        return dateAvailableFrom.after(new Date()) ? rooms.stream().filter(room ->
+                room.getDateAvailableFrom().compareTo(dateAvailableFrom) == 0).collect(Collectors.toCollection(HashSet::new))
+                : rooms;
+    }
+
+    private Collection<Room> hotelNameFilter(String hotelName, Collection<Room> rooms){
+        return hotelName != null && !hotelName.isEmpty() ? rooms.stream().filter(room ->
+                room.getHotel().getName().equals(hotelName)).collect(Collectors.toCollection(HashSet::new)) : rooms;
+    }
+
+    private Collection<Room> countryFilter(String country, Collection<Room> rooms){
+        return country != null && !country.isEmpty() ? rooms.stream().filter(room ->
+                room.getHotel().getCountry().equals(country)).collect(Collectors.toCollection(HashSet::new)) : rooms;
+    }
+
+    private Collection<Room> cityFilter(String city, Collection<Room> rooms){
+        return city != null && !city.isEmpty() ? rooms.stream().filter(room ->
+                room.getHotel().getCity().equals(city)).collect(Collectors.toCollection(HashSet::new)) : rooms;
     }
 
     @Override
@@ -82,4 +146,6 @@ public class RoomService implements ValidatorFields{
         }
         if (roomRepository.getModels().contains(room)) throw new FindInstanceException("Repository contain the model", room);
     }
+
+
 }

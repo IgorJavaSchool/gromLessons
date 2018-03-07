@@ -1,5 +1,6 @@
 package hotelOnlineBooking.controllers;
 
+import hotelOnlineBooking.models.Filter;
 import hotelOnlineBooking.models.Room;
 import hotelOnlineBooking.services.RoomService;
 import hotelOnlineBooking.services.ServicesExceptions.CountGuestException;
@@ -8,7 +9,6 @@ import hotelOnlineBooking.services.ServicesExceptions.IncorrectDateException;
 import hotelOnlineBooking.services.ServicesExceptions.PriceException;
 
 import java.util.Collection;
-import java.util.logging.Filter;
 
 /**
  * @author Yanevskyy Igor igor2000@inbox.ru.

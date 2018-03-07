@@ -1,6 +1,8 @@
 package lesson1;
 
 
+import java.util.Date;
+
 /**
  * Created by MM on 10.12.2017.
  */
@@ -24,5 +26,16 @@ public class Abc {
 
     public int getB() {
         return b;
+    }
+
+    public static void main(String[] args) {
+        Date date1 = new Date();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Date date2 = new Date();
+        System.out.println(date1.compareTo(date2));
     }
 }
