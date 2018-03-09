@@ -4,6 +4,7 @@ import hotelOnlineBooking.controllers.UserController;
 import hotelOnlineBooking.models.User;
 import hotelOnlineBooking.models.UserType;
 import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
+import hotelOnlineBooking.services.ServicesExceptions.IncorrectUserFieldException;
 
 import java.io.IOException;
 
@@ -18,10 +19,14 @@ public class UserDemo {
             new UserController().registerUser(new User("Jon", "pass", "Canada", UserType.USER));
         } catch (FindInstanceException e) {
             e.printStackTrace();
+        } catch (IncorrectUserFieldException e) {
+            e.printStackTrace();
         }
         try {
             new UserController().registerUser(new User("Ted", "pass123", "USA", UserType.ADMIN));
         } catch (FindInstanceException e) {
+            e.printStackTrace();
+        } catch (IncorrectUserFieldException e) {
             e.printStackTrace();
         }
         try {

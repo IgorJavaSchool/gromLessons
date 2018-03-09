@@ -78,11 +78,13 @@ public class GeneralRepository <T extends Model> {
      */
     void writeModelToFile(String[] fields){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))){
+            StringBuilder lineBD = new StringBuilder();
             for (int i = 0; i < fields.length - 1; i++) {
-                writer.append(fields[i]).append(", ");
+                lineBD.append(fields[i]).append(", ");
             }
-            writer.append(fields[fields.length - 1]);
-            writer.append("\n");
+            lineBD.append(fields[fields.length - 1]);
+            lineBD.append("\n");
+            writer.append(lineBD);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,10 +1,10 @@
 package hotelOnlineBooking.services;
 
 import hotelOnlineBooking.models.*;
-import hotelOnlineBooking.repository.HotelRepository;
-import hotelOnlineBooking.repository.OrderRepository;
-import hotelOnlineBooking.repository.RoomRepository;
-import hotelOnlineBooking.repository.UserRepository;
+import hotelOnlineBooking.repository.HotelActionsRepository;
+import hotelOnlineBooking.repository.OrderActionsRepository;
+import hotelOnlineBooking.repository.RoomActionsRepository;
+import hotelOnlineBooking.repository.UserActionsRepository;
 import hotelOnlineBooking.services.ServicesExceptions.FindIDException;
 import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
 import hotelOnlineBooking.services.ServicesExceptions.IncorrectDateException;
@@ -17,10 +17,10 @@ import java.util.Date;
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class OrderService implements ValidatorFields{
-    private OrderRepository orderRepository = new OrderRepository();
-    private RoomRepository roomRepository = new RoomRepository();
-    private UserRepository userRepository = new UserRepository();
-    private HotelRepository hotelRepository = new HotelRepository();
+    private OrderActionsRepository orderRepository = new OrderActionsRepository();
+    private RoomActionsRepository roomRepository = new RoomActionsRepository();
+    private UserActionsRepository userRepository = new UserActionsRepository();
+    private HotelActionsRepository hotelRepository = new HotelActionsRepository();
     private final int ONEDAY = 86400000;
     private final int PERIOD_RESERVE = 3;
 

@@ -2,7 +2,7 @@ package hotelOnlineBooking.services;
 
 import hotelOnlineBooking.models.Hotel;
 import hotelOnlineBooking.models.Model;
-import hotelOnlineBooking.repository.HotelRepository;
+import hotelOnlineBooking.repository.HotelActionsRepository;
 import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
 
 /**
@@ -10,7 +10,7 @@ import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
  */
 public class HotelService implements ValidatorFields{
 
-    private HotelRepository hotelRepository = new HotelRepository();
+    private HotelActionsRepository hotelRepository = new HotelActionsRepository();
 
     public void addHotel(Hotel hotel) throws FindInstanceException {
         validateFields(hotel);

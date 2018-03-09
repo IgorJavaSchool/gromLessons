@@ -2,6 +2,7 @@ package hotelOnlineBooking.controllers;
 
 import hotelOnlineBooking.models.User;
 import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
+import hotelOnlineBooking.services.ServicesExceptions.IncorrectUserFieldException;
 import hotelOnlineBooking.services.UserService;
 
 /**
@@ -15,7 +16,7 @@ public class UserController {
      * @param user
      * @return
      */
-    public User registerUser(User user) throws FindInstanceException {
+    public User registerUser(User user) throws FindInstanceException, IncorrectUserFieldException {
         return userService.registerUser(user);
     }
 

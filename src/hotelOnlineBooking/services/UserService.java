@@ -2,14 +2,15 @@ package hotelOnlineBooking.services;
 
 import hotelOnlineBooking.models.Model;
 import hotelOnlineBooking.models.User;
-import hotelOnlineBooking.repository.UserRepository;
+import hotelOnlineBooking.repository.UserActionsRepository;
 import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
+import hotelOnlineBooking.services.ServicesExceptions.IncorrectUserFieldException;
 
 /**
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class UserService implements ValidatorFields{
-    private UserRepository userRepository = new UserRepository();
+    private UserActionsRepository userRepository = new UserActionsRepository();
 
 
     /**
@@ -18,7 +19,7 @@ public class UserService implements ValidatorFields{
      * @param user
      * @return
      */
-    public User registerUser(User user) throws FindInstanceException {
+    public User registerUser(User user) throws FindInstanceException, IncorrectUserFieldException {
         validateFields(user);
         // Check business logic
         // TODO: 27.02.2018
@@ -26,22 +27,22 @@ public class UserService implements ValidatorFields{
     }
 
     @Override
-    public void validateFields(Model model) throws FindInstanceException {
+    public void validateFields(Model model) throws FindInstanceException, IncorrectUserFieldException {
         User user = (User) model;
         if (user == null) {
             throw new NullPointerException("User should not be null");
         }
         if (user.getUserName() == null || user.getUserName().isEmpty()){
-            throw new NullPointerException("User's field UserName should not be null or empty");
+            throw new IncorrectUserFieldException("User's field UserName should not be null or empty");
         }
         if (user.getPassword() == null || user.getPassword().isEmpty()){
-            throw new NullPointerException("User's field Password should not be null or empty");
+            throw new IncorrectUserFieldException("User's field Password should not be null or empty");
         }
         if (user.getCountry() == null || user.getCountry().isEmpty()){
-            throw new NullPointerException("User's field Country should not be null or empty");
+            throw new IncorrectUserFieldException("User's field Country should not be null or empty");
         }
         if (user.getUserType() == null || user.getUserType().name().isEmpty()){
-            throw new NullPointerException("User's field UserTape should not be null or empty");
+            throw new IncorrectUserFieldException("User's field UserTape should not be null or empty");
         }
         if (userRepository.getModels().contains(user)) throw new FindInstanceException("Repository contain the model", user);
     }

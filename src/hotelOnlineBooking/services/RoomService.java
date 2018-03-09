@@ -3,8 +3,8 @@ package hotelOnlineBooking.services;
 import hotelOnlineBooking.models.Filter;
 import hotelOnlineBooking.models.Model;
 import hotelOnlineBooking.models.Room;
-import hotelOnlineBooking.repository.HotelRepository;
-import hotelOnlineBooking.repository.RoomRepository;
+import hotelOnlineBooking.repository.HotelActionsRepository;
+import hotelOnlineBooking.repository.RoomActionsRepository;
 import hotelOnlineBooking.services.ServicesExceptions.CountGuestException;
 import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
 import hotelOnlineBooking.services.ServicesExceptions.IncorrectDateException;
@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class RoomService implements ValidatorFields{
-    private RoomRepository roomRepository = new RoomRepository();
-    private HotelRepository hotelRepository = new HotelRepository();
+    private RoomActionsRepository roomRepository = new RoomActionsRepository();
+    private HotelActionsRepository hotelRepository = new HotelActionsRepository();
 
     /**
      *  The method use only admin
