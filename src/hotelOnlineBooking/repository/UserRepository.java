@@ -19,7 +19,7 @@ import java.util.Objects;
  */
 public class UserRepository extends GeneralRepository implements RepositoryFills{
     {
-        setPath("src\\hotelOnlineBooking\\resources\\Users");
+        setPath("./src/hotelOnlineBooking/resources/Users");
         fillRepository(readModelsFields(getPath()));
     }
 //"src\\hotelOnlineBooking\\resources\\Users"

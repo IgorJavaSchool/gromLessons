@@ -17,10 +17,11 @@ import java.util.logging.Filter;
 public class RoomRepository extends GeneralRepository implements RepositoryFills{
     private HotelRepository hotelRepository = new HotelRepository();
     {
-        setPath("src\\hotelOnlineBooking\\resources\\Rooms");
+        setPath("./src/hotelOnlineBooking/resources/Rooms");
         fillRepository(readModelsFields(getPath()));
     }
 //"src\\hotelOnlineBooking\\resources\\Rooms"
+    ///Users/a1/IdeaProjects/gromLessons/src/hotelOnlineBooking/resources/Rooms
     /**
      *  The method use only admin
      * @param RoomId

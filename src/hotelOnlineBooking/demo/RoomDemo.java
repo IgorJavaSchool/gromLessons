@@ -1,6 +1,7 @@
 package hotelOnlineBooking.demo;
 
 import hotelOnlineBooking.controllers.RoomController;
+import hotelOnlineBooking.models.Filter;
 import hotelOnlineBooking.models.Hotel;
 import hotelOnlineBooking.models.Room;
 import hotelOnlineBooking.services.ServicesExceptions.CountGuestException;
@@ -8,6 +9,7 @@ import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
 import hotelOnlineBooking.services.ServicesExceptions.IncorrectDateException;
 import hotelOnlineBooking.services.ServicesExceptions.PriceException;
 
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -129,5 +131,9 @@ public class RoomDemo {
         } catch (CountGuestException e) {
             e.printStackTrace();
         }
+
+        Collection rooms = roomController.findRooms(new Filter(0, 350, false,false,
+        null, null, null, null));
+        System.out.println(rooms);
     }
 }

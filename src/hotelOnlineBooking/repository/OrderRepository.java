@@ -17,7 +17,7 @@ public class OrderRepository extends GeneralRepository implements RepositoryFill
     private UserRepository userRepository = new UserRepository();
     private RoomRepository roomRepository = new RoomRepository();
     {
-        setPath("src\\hotelOnlineBooking\\resources\\Orders");
+        setPath("./src/hotelOnlineBooking/resources/Orders");
         fillRepository(readModelsFields(getPath()));
     }
 //"src\\hotelOnlineBooking\\resources\\Orders"

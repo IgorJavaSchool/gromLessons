@@ -12,7 +12,7 @@ import java.util.List;
 public class HotelRepository extends GeneralRepository implements RepositoryFills{
 
     {
-        setPath("src\\hotelOnlineBooking\\resources\\Hotels");
+        setPath("./src/hotelOnlineBooking/resources/Hotels");
         fillRepository(readModelsFields(getPath()));
     }
 //"src\\hotelOnlineBooking\\resources\\Hotels"

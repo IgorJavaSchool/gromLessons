@@ -16,6 +16,17 @@ public class Filter {
     private String country;
     private String city;
 
+    public Filter(int numberOfGuests, double price, boolean breakfastIncluded, boolean petsAllowed, Date dateAvailableFrom, String hotelName, String country, String city) {
+        this.numberOfGuests = numberOfGuests;
+        this.price = price;
+        this.breakfastIncluded = breakfastIncluded;
+        this.petsAllowed = petsAllowed;
+        this.dateAvailableFrom = dateAvailableFrom;
+        this.hotelName = hotelName;
+        this.country = country;
+        this.city = city;
+    }
+
     public int getNumberOfGuests() {
         return numberOfGuests;
     }
