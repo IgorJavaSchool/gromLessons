@@ -2,7 +2,7 @@ package hotelOnlineBooking.services;
 
 import hotelOnlineBooking.models.Hotel;
 import hotelOnlineBooking.models.Model;
-import hotelOnlineBooking.repository.HotelActionsRepository;
+import hotelOnlineBooking.repository.HotelRepository;
 import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
 
 /**
@@ -10,7 +10,7 @@ import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
  */
 public class HotelService implements ValidatorFields{
 
-    private HotelActionsRepository hotelRepository = new HotelActionsRepository();
+    private HotelRepository hotelRepository = new HotelRepository();
 
     public void addHotel(Hotel hotel) throws FindInstanceException {
         validateFields(hotel);
@@ -18,7 +18,7 @@ public class HotelService implements ValidatorFields{
     }
 
     public void deleteHotel(long hotelId){
-        Hotel hotel = (Hotel) hotelRepository.getById(hotelId);
+        Hotel hotel = (Hotel) hotelRepository.parseField(hotelRepository.getById(hotelId));
         if (hotel == null) throw new NullPointerException("The hotel not find into DB and can't delete");
         hotelRepository.deleteHotel(hotelId);
     }
@@ -42,7 +42,7 @@ public class HotelService implements ValidatorFields{
         if (hotel.getStreet() == null || hotel.getStreet().isEmpty()){
             throw new NullPointerException("Hotel's field Street should not be null or empty");
         }
-        if (hotelRepository.getModels().contains(model)){
+        if (hotelRepository.contains(model)){
             throw new FindInstanceException("Repository contain the model", model);
         }
     }

@@ -35,7 +35,7 @@ public class OrderDemo {
         }
 
         try {
-            orderController.bookRoom(4, 1, 1);
+            orderController.bookRoom(1, 1, 1);
         } catch (FindInstanceException e) {
             e.printStackTrace();
         } catch (FindIDException e) {

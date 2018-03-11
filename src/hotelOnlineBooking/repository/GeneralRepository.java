@@ -10,7 +10,7 @@ import java.util.*;
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class GeneralRepository <T extends Model> {
-    private Collection<T> models = new HashSet<>();
+//    private Collection<T> models = new HashSet<>();
     private String path;
     private final SimpleDateFormat DATAFORMAT = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -21,8 +21,9 @@ public class GeneralRepository <T extends Model> {
      */
     long generateId(){
         long newID = 0;
-        for (T t: models){
-            newID = newID < t.getId() ? t.getId() : newID;
+        List<String[]> models = readModelsFields(path);
+        for (String[] line: models){
+            newID = newID < Integer.parseInt(line[0]) ? Integer.parseInt(line[0]) : newID;
         }
         return ++newID;
     }
@@ -33,19 +34,20 @@ public class GeneralRepository <T extends Model> {
      * @param id
      * @return
      */
-    public T getById(long id){
-        for (T t : models){
-            if (t.getId() == id) {
-                return t;
+    public String[] getById(long id){
+        List<String[]> models = readModelsFields(path);
+        for (String[] line : models){
+            if (Integer.parseInt(line[0]) == id) {
+                return line;
             }
         }
         return null;
     }
 
-    public T addToRepository(T t, String[] fields){
+     T addToRepository(T t, String[] fields){
         writeModelToFile(fields);
 
-        getModels().add(t);
+//        getModels().add(t);
 
         return t;
     }
@@ -59,15 +61,16 @@ public class GeneralRepository <T extends Model> {
         for (String[] modelFields : modelsFieldList){
             if (String.valueOf(t.getId()).equals(modelFields[0])){
                 modelsFieldList.remove(modelFields);
+                try {
+                    new FileWriter(path);
+                    for (String[] strings : modelsFieldList){
+                        writeModelToFile(strings);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             }
-        }
-        try (FileWriter fileWriter = new FileWriter(path)){
-            for (String[] modelFields : modelsFieldList){
-                writeModelToFile(modelFields);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -76,7 +79,7 @@ public class GeneralRepository <T extends Model> {
      * Writes model to file.
      * @param fields
      */
-    void writeModelToFile(String[] fields){
+    private void writeModelToFile(String[] fields){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))){
             StringBuilder lineBD = new StringBuilder();
             for (int i = 0; i < fields.length - 1; i++) {
@@ -89,7 +92,6 @@ public class GeneralRepository <T extends Model> {
             e.printStackTrace();
         }
     }
-
 
 
     /**
@@ -125,17 +127,17 @@ public class GeneralRepository <T extends Model> {
         return ID;
     }
 
-    /**
-     *
-     * @param fields Object's fields from file's DB.
-     * @return true is all fields are not empty.
-     */
-    boolean isEmptyFields(String[] fields){
-        for (String field : fields){
-            if (field.isEmpty()|| Objects.equals(field, " ")) return true;
-        }
-        return false;
-    }
+//    /**
+//     *
+//     * @param fields Object's fields from file's DB.
+//     * @return true is all fields are not empty.
+//     */
+//    boolean isEmptyFields(String[] fields){
+//        for (String field : fields){
+//            if (field.isEmpty()|| Objects.equals(field, " ")) return true;
+//        }
+//        return false;
+//    }
 
 
 
@@ -147,15 +149,35 @@ public class GeneralRepository <T extends Model> {
         this.path = path;
     }
 
-    public Collection<T> getModels() {
-        return models;
-    }
+//    public Collection<T> getModels() {
+//        return models;
+//    }
 
-    public void setModels(Collection<T> models) {
-        this.models = models;
-    }
+//    public void setModels(Collection<T> models) {
+//        this.models = models;
+//    }
 
     SimpleDateFormat getDATAFORMAT() {
         return DATAFORMAT;
+    }
+
+    public Collection<T> getModels(){
+        Collection<T> collection = new HashSet<>();
+        List<String[]> rooms = readModelsFields(getPath());
+        ActionsRepository<T> actionsRepository = (ActionsRepository<T>) this;
+        for (Object line : rooms){
+            collection.add((T) actionsRepository.parseField((String[]) line));
+        }
+        return collection;
+    }
+
+    public boolean contains(Model model){
+        ActionsRepository<T> actionsRepository = (ActionsRepository<T>) this;
+        String[] modelFields = actionsRepository.getModelFields((T) model);
+        List<String[]> models = readModelsFields(getPath());
+        for (String[] fields : models){
+            if (Arrays.equals(fields, modelFields)) return true;
+        }
+        return false;
     }
 }

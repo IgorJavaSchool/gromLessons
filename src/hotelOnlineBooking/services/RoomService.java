@@ -3,8 +3,8 @@ package hotelOnlineBooking.services;
 import hotelOnlineBooking.models.Filter;
 import hotelOnlineBooking.models.Model;
 import hotelOnlineBooking.models.Room;
-import hotelOnlineBooking.repository.HotelActionsRepository;
-import hotelOnlineBooking.repository.RoomActionsRepository;
+import hotelOnlineBooking.repository.HotelRepository;
+import hotelOnlineBooking.repository.RoomRepository;
 import hotelOnlineBooking.services.ServicesExceptions.CountGuestException;
 import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
 import hotelOnlineBooking.services.ServicesExceptions.IncorrectDateException;
@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class RoomService implements ValidatorFields{
-    private RoomActionsRepository roomRepository = new RoomActionsRepository();
-    private HotelActionsRepository hotelRepository = new HotelActionsRepository();
+    private RoomRepository roomRepository = new RoomRepository();
+    private HotelRepository hotelRepository = new HotelRepository();
 
     /**
      *  The method use only admin
@@ -36,7 +36,7 @@ public class RoomService implements ValidatorFields{
      * @param roomId
      */
     public void deleteRoom(long roomId){
-        Room room = (Room) roomRepository.getById(roomId);
+        Room room = (Room) roomRepository.parseField(roomRepository.getById(roomId));
         if (room == null) throw new NullPointerException("The room not find into DB and can't delete");
         roomRepository.deleteRoom(room.getId());
     }
@@ -48,7 +48,7 @@ public class RoomService implements ValidatorFields{
      * @return
      */
     public Collection<Room> findRooms(Filter filter){
-        Collection rooms = roomRepository.getModels();
+        Collection rooms = roomRepository.findRooms();
         rooms = numberOfGuestFilter(filter.getNumberOfGuests(), rooms);
         rooms = priceFilter(filter.getPrice(), rooms);
         rooms = breakfastIncludedFilter(filter.isBreakfastIncluded(), rooms);
@@ -134,10 +134,10 @@ public class RoomService implements ValidatorFields{
         if (room.getDateAvailableFrom().before(new Date()))
             throw new IncorrectDateException("Date available should not be less then the current date", room.getDateAvailableFrom());
         if (room.getHotel() == null) throw new NullPointerException("Room's field \"Hotel\" should not be null");
-        if (!hotelRepository.getModels().contains(room.getHotel())){
+        if (!hotelRepository.contains(room.getHotel())){
             throw new FindInstanceException(room.getHotel());
         }
-        if (roomRepository.getModels().contains(room)) throw new FindInstanceException("Repository contain the model", room);
+        if (roomRepository.contains(room)) throw new FindInstanceException("Repository contain the model", room);
     }
 
 

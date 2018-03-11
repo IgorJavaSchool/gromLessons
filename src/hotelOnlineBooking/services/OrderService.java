@@ -1,10 +1,10 @@
 package hotelOnlineBooking.services;
 
 import hotelOnlineBooking.models.*;
-import hotelOnlineBooking.repository.HotelActionsRepository;
-import hotelOnlineBooking.repository.OrderActionsRepository;
-import hotelOnlineBooking.repository.RoomActionsRepository;
-import hotelOnlineBooking.repository.UserActionsRepository;
+import hotelOnlineBooking.repository.HotelRepository;
+import hotelOnlineBooking.repository.OrderRepository;
+import hotelOnlineBooking.repository.RoomRepository;
+import hotelOnlineBooking.repository.UserRepository;
 import hotelOnlineBooking.services.ServicesExceptions.FindIDException;
 import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
 import hotelOnlineBooking.services.ServicesExceptions.IncorrectDateException;
@@ -17,10 +17,10 @@ import java.util.Date;
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class OrderService implements ValidatorFields{
-    private OrderActionsRepository orderRepository = new OrderActionsRepository();
-    private RoomActionsRepository roomRepository = new RoomActionsRepository();
-    private UserActionsRepository userRepository = new UserActionsRepository();
-    private HotelActionsRepository hotelRepository = new HotelActionsRepository();
+    private OrderRepository orderRepository = new OrderRepository();
+    private RoomRepository roomRepository = new RoomRepository();
+    private UserRepository userRepository = new UserRepository();
+    private HotelRepository hotelRepository = new HotelRepository();
     private final int ONEDAY = 86400000;
     private final int PERIOD_RESERVE = 3;
 
@@ -39,8 +39,8 @@ public class OrderService implements ValidatorFields{
      * @throws IncorrectDateException
      */
     private Order createOrder(long roomId, long userId) throws IncorrectDateException {
-        User user = (User) userRepository.getById(userId);
-        Room room = (Room) roomRepository.getById(roomId);
+        User user = (User) userRepository.parseField(userRepository.getById(userId));
+        Room room = (Room) roomRepository.parseField(roomRepository.getById(roomId));
         Date dateFrom = takeAvailableDate(room.getDateAvailableFrom());
         Date dateTo = addSomeDay(dateFrom, PERIOD_RESERVE);
         double moneyPaid = totalMoneyPaid(dateFrom, dateTo, room.getPrice());
@@ -64,7 +64,7 @@ public class OrderService implements ValidatorFields{
      * @throws IncorrectDateException
      */
     private void checkOrdersRooms(Order order) throws IncorrectDateException, FindInstanceException {
-        if (orderRepository.getModels().contains(order))
+        if (orderRepository.contains(order))
             throw new FindInstanceException("Repository contain the model", order);
         Collection<Order> orders =  orderRepository.getModels();
         for (Order orderInDB : orders){
@@ -147,8 +147,8 @@ public class OrderService implements ValidatorFields{
         if (order == null) {
             throw new NullPointerException("Order should not null");
         }
-        if (!userRepository.getModels().contains(order.getUser()))throw new FindInstanceException(order.getUser());
-        if (!roomRepository.getModels().contains(order.getRoom()))throw new FindInstanceException(order.getRoom());
+        if (!userRepository.contains(order.getUser()))throw new FindInstanceException(order.getUser());
+        if (!roomRepository.contains(order.getRoom()))throw new FindInstanceException(order.getRoom());
 
         if (order.getDateFrom().before(new Date()))
             throw new IncorrectDateException("Order's date visit should not be less then the current date", order.getDateFrom());
@@ -158,18 +158,17 @@ public class OrderService implements ValidatorFields{
         if (order.getMoneyPaid() < totalMoneyPaid(order.getDateFrom(), order.getDateTo(), order.getRoom().getPrice())){
             throw new PriceException("Sum paid less total cost.", order.getMoneyPaid());
         }
-        if (orderRepository.getModels().contains(order)) throw new FindInstanceException("Repository contain the model", order);
+        if (orderRepository.contains(order)) throw new FindInstanceException("Repository contain the model", order);
     }
 
-    private void validateID(long roomId, long userId, long hotelId) throws FindInstanceException, FindIDException {
+    private void validateID(long roomId, long userId, long hotelId) throws FindIDException {
         if (roomRepository.getById(roomId) == null)throw new FindIDException(roomId);
         if (userRepository.getById(userId) == null)throw new FindIDException(userId);
         if (hotelRepository.getById(hotelId) == null)throw new FindIDException(roomId);
     }
 
-    private void validateID(long roomId, long userId) throws FindInstanceException, FindIDException {
+    private void validateID(long roomId, long userId) throws FindIDException {
         if (roomRepository.getById(roomId) == null)throw new FindIDException(roomId);
         if (userRepository.getById(userId) == null)throw new FindIDException(userId);
     }
-// TODO: 03.03.2018
 }

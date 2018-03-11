@@ -2,7 +2,7 @@ package hotelOnlineBooking.services;
 
 import hotelOnlineBooking.models.Model;
 import hotelOnlineBooking.models.User;
-import hotelOnlineBooking.repository.UserActionsRepository;
+import hotelOnlineBooking.repository.UserRepository;
 import hotelOnlineBooking.services.ServicesExceptions.FindInstanceException;
 import hotelOnlineBooking.services.ServicesExceptions.IncorrectUserFieldException;
 
@@ -10,7 +10,7 @@ import hotelOnlineBooking.services.ServicesExceptions.IncorrectUserFieldExceptio
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class UserService implements ValidatorFields{
-    private UserActionsRepository userRepository = new UserActionsRepository();
+    private UserRepository userRepository = new UserRepository();
 
 
     /**
@@ -44,6 +44,6 @@ public class UserService implements ValidatorFields{
         if (user.getUserType() == null || user.getUserType().name().isEmpty()){
             throw new IncorrectUserFieldException("User's field UserTape should not be null or empty");
         }
-        if (userRepository.getModels().contains(user)) throw new FindInstanceException("Repository contain the model", user);
+        if (userRepository.contains(user)) throw new FindInstanceException("Repository contain the model", user);
     }
 }
