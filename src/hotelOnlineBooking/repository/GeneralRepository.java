@@ -44,7 +44,7 @@ public class GeneralRepository <T extends Model> {
     }
 
      T addToRepository(T t, String[] fields){
-        writeModelToFile(fields);
+        writeToFile(createBuilder(fields));
         return t;
     }
 
@@ -54,17 +54,19 @@ public class GeneralRepository <T extends Model> {
      */
     void removeModelFromFile(T t){
         List<String[]> modelsFieldList = readModelsFields(path);
+        StringBuilder lineBD = new StringBuilder();
         for (String[] modelFields : modelsFieldList){
             if (String.valueOf(t.getId()).equals(modelFields[0])){
                 modelsFieldList.remove(modelFields);
                 try {
                     new FileWriter(path);
                     for (String[] strings : modelsFieldList){
-                        writeModelToFile(strings);
+                        lineBD.append(createBuilder(strings));
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                writeToFile(lineBD);
                 break;
             }
         }
@@ -75,19 +77,22 @@ public class GeneralRepository <T extends Model> {
      * Writes model to file.
      * @param fields
      */
-    private void writeModelToFile(String[] fields){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))){
+    private StringBuilder createBuilder(String[] fields){
             StringBuilder lineBD = new StringBuilder();
             for (int i = 0; i < fields.length - 1; i++) {
                 lineBD.append(fields[i]).append(", ");
             }
             lineBD.append(fields[fields.length - 1]);
             lineBD.append("\n");
-            writer.append(lineBD);
+        return lineBD;
+    }
+    private void writeToFile(StringBuilder builder){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))){
+            writer.append(builder);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+        }
 
 
     /**
