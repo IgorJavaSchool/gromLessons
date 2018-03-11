@@ -10,7 +10,6 @@ import java.util.*;
  * @author Yanevskyy Igor igor2000@inbox.ru.
  */
 public class GeneralRepository <T extends Model> {
-//    private Collection<T> models = new HashSet<>();
     private String path;
     private final SimpleDateFormat DATAFORMAT = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -46,9 +45,6 @@ public class GeneralRepository <T extends Model> {
 
      T addToRepository(T t, String[] fields){
         writeModelToFile(fields);
-
-//        getModels().add(t);
-
         return t;
     }
 
@@ -127,20 +123,6 @@ public class GeneralRepository <T extends Model> {
         return ID;
     }
 
-//    /**
-//     *
-//     * @param fields Object's fields from file's DB.
-//     * @return true is all fields are not empty.
-//     */
-//    boolean isEmptyFields(String[] fields){
-//        for (String field : fields){
-//            if (field.isEmpty()|| Objects.equals(field, " ")) return true;
-//        }
-//        return false;
-//    }
-
-
-
     String getPath() {
         return path;
     }
@@ -148,14 +130,6 @@ public class GeneralRepository <T extends Model> {
     void setPath(String path) {
         this.path = path;
     }
-
-//    public Collection<T> getModels() {
-//        return models;
-//    }
-
-//    public void setModels(Collection<T> models) {
-//        this.models = models;
-//    }
 
     SimpleDateFormat getDATAFORMAT() {
         return DATAFORMAT;

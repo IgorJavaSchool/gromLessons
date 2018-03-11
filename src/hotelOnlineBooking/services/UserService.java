@@ -21,8 +21,6 @@ public class UserService implements ValidatorFields{
      */
     public User registerUser(User user) throws FindInstanceException, IncorrectUserFieldException {
         validateFields(user);
-        // Check business logic
-        // TODO: 27.02.2018
         return userRepository.registerUser(user);
     }
 

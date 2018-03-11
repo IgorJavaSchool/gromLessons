@@ -19,7 +19,6 @@ public class OrderController {
      */
     public void bookRoom(long roomId, long userId, long hotelId) throws FindInstanceException, FindIDException, IncorrectDateException {
         orderService.bookRoom(roomId, userId, hotelId);
-        // TODO: 27.02.2018
     }
 
     /**

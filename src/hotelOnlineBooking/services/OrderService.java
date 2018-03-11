@@ -1,6 +1,9 @@
 package hotelOnlineBooking.services;
 
-import hotelOnlineBooking.models.*;
+import hotelOnlineBooking.models.Model;
+import hotelOnlineBooking.models.Order;
+import hotelOnlineBooking.models.Room;
+import hotelOnlineBooking.models.User;
 import hotelOnlineBooking.repository.HotelRepository;
 import hotelOnlineBooking.repository.OrderRepository;
 import hotelOnlineBooking.repository.RoomRepository;
